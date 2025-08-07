@@ -16,7 +16,7 @@ inizialicemos el maximo local y global a $a_{1}$.
 
 ### 2. En el segundo paso 
 
-el maximo local seria tomar $a_{2}$ o no tomarlo bajo la siguiente regla
+el subarreglo con suma que maximiza en este punto es el maximo entre solo considerar a $a_{2}$ o agregarlo al subarreglo maximo anterior, solo que no necesitamos el arreglo anterior si no la suma del arreglo anterior que se encuentra en $maximo\_local_{1}$:
 
 $$ maximo\_local_{2} := max{ (a_{2}, a_{2} + maximo\_local_{1} )}$$
 
