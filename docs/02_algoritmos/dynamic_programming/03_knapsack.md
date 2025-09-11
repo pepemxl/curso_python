@@ -17,21 +17,71 @@ Aqui hay varias versiones, el 0/1 es cuando cada elemento se puede tomar o no, p
 - Maximizar \( \sum_{i} v_i \cdot x_i \), donde \( x_i \in \{0,1\} \) (tomar o no el elemento).
 - Con la restricción de que \( \sum_{i} w_i \cdot x_i \leq W \).
 
-## Solución con Programación Dinámica (DP)
-
-Usamos un arreglo bidimensional(una tabla) `dp[n+1][W+1]` donde `dp[i][j]` = valor máximo que se puede obtener con los primeros `i` elementos y capacidad `j`.
+## Soluciones
 
 ### Relación de recurrencia
 
-  \[
-  dp[i][j] = 
-  \begin{cases} 
-  dp[i-1][j] & \text{si } w[i] > j \text{ (no cabe)} \\
-  \max(dp[i-1][j], v[i] + dp[i-1][j-w[i]]) & \text{si } w[i] \leq j \text{ (cabe)}
-  \end{cases}
-  \]
+\[
+dp[i][j] = 
+\begin{cases} 
+dp[i-1][j] & \text{si } w[i] > j \text{ (no cabe)} \\
+\max(dp[i-1][j], v[i] + dp[i-1][j-w[i]]) & \text{si } w[i] \leq j \text{ (cabe)}
+\end{cases}
+\]
+
+
+```python title="Solución Recursiva" linenums="1"
+def knapsack_brute_force(capacity, n):
+    if n == 0 or capacity == 0:
+        return 0
+    elif weights[n-1] > capacity:
+        return knapsack_brute_force(capacity, n-1)
+    else:
+        include_item = values[n-1] + knapsack_brute_force(capacity-weights[n-1], n-1)
+        exclude_item = knapsack_brute_force(capacity, n-1)
+        return max(include_item, exclude_item)  
+```
+usualmente escribimos solo `max(values[n-1] + knapsack_brute_force(capacity-weights[n-1], n-1), knapsack_brute_force(capacity, n-1))` usamos `include_item` y `exclude_item` para que sea más claro.
+
+```python title="Solución Recursiva con Memoización  (top-down)" linenums="1"
+def knapsack_memoization(capacity, n):
+    if memo[n][capacity] is not None:
+        return memo[n][capacity]
+    if n == 0 or capacity == 0:
+        result = 0
+    elif weights[n-1] > capacity:
+        result = knapsack_memoization(capacity, n-1)
+    else:
+        include_item = values[n-1] + knapsack_memoization(capacity-weights[n-1], n-1)
+        exclude_item = knapsack_memoization(capacity, n-1)
+        result = max(include_item, exclude_item)
+    memo[n][capacity] = result
+    return result
+```
+
+```python title="Tabulación  (bottom-up)" linenums="1"
+def knapsack_tabulation():
+    n = len(values)
+    tab = [[0]*(capacity + 1) for y in range(n + 1)]
+    for i in range(1, n+1):
+        for w in range(1, capacity+1):
+            if weights[i-1] <= w:
+                include_item = values[i-1] + tab[i-1][w-weights[i-1]]
+                exclude_item = tab[i-1][w]
+                tab[i][w] = max(include_item, exclude_item)
+            else:
+                tab[i][w] = tab[i-1][w]
+    return tab[n][capacity]
+```
+
+### Solución con Programación Dinámica (Bottom-Up) Optimizada
+
+Usamos un arreglo bidimensional(una tabla) `dp[n+1][W+1]` donde `dp[i][j]` = valor máximo que se puede obtener con los primeros `i` elementos y capacidad `j`.
+
 
 ### Inicialización
+
+Hay que tener cuidado con la inicialización
 
 - `dp[0][j] = 0` (sin elementos, valor = 0).
 - `dp[i][0] = 0` (capacidad 0, valor = 0).
