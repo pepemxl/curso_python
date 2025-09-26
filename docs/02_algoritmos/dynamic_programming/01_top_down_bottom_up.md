@@ -25,7 +25,7 @@ for i from 2 to n:
 
 ## Top-down (Memoization)
 
-El método de arriba hacia abajo (top-down) se implementa con recursión y se vuelve eficiente con memorización. Si quisiéramos encontrar el $n-$esimo número de Fibonacci $F(n)$, intentamos calcularlo encontrando $F(n−1)$ y $F(n−2)$. Esto define un patrón recursivo que continuará hasta que alcancemos los casos base
+El método de arriba hacia abajo (top-down) se implementa con recursión y se vuelve eficiente con memoización que es el termine usado en lenguajes de programación para referirse a un tipo de memorización. Si quisiéramos encontrar el $n-$esimo número de Fibonacci $F(n)$, intentamos calcularlo encontrando $F(n−1)$ y $F(n−2)$. Esto define un patrón recursivo que continuará hasta que alcancemos los casos base
 
 $$ F(0) = F (1) = 1$$
 
