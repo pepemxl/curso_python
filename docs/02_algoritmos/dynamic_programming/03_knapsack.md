@@ -107,8 +107,69 @@ def knapsack_01(W, wt, val, n):
 - **Solución óptima**:
   - Tomar los elementos con `val = 100` y `val = 120` (peso total = 50, valor total = 220).
 
-## Complejidad
+### Complejidad
 
 - **Tiempo**: \(O(n \cdot W)\)
 - **Espacio**: \(O(n \cdot W)\) (optimizable a \(O(W)\)).
 
+
+## Problema Partition Equal Subset Sum
+
+Dada una matriz de enteros nums, devuelve verdadero si puedes particionar la matriz en dos subconjuntos de modo que la suma de los elementos en ambos subconjuntos sea igual o falso en caso contrario.
+
+### Solución ineficiente
+
+```python title="Solucion" linenums="1"
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        # bfs => x^200 which is not feasible then we will use memoization in a dfs
+        suma = sum(nums)
+        if suma%2: 
+            return False
+        n = len(nums)
+        target = suma // 2
+        self.memo = {}
+        def dfs_target(nums: Tuple[int], n: int, target: int) -> bool:
+            if (n, target) in self.memo:
+                return self.memo[(n, target)]
+            result = False
+            if target == 0:
+                self.memo[(n, target)] = True
+                return True
+            if n == 0 or target < 0:
+                self.memo[(n, target)] = False
+                return False
+            result = dfs_target(nums, n-1, target-nums[n-1]) or dfs_target(nums, n-1, target)
+            self.memo[(n, target)] = result
+            return result
+        return dfs_target(tuple(nums), n-1, target)
+```
+
+### Solución Bottom-Up
+
+
+```python
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        suma = sum(nums)
+        if suma%2: 
+            return False
+        n = len(nums)
+        target = suma // 2
+        dp = [[0]*(target+1) for i in range(n+1)]
+        dp[0][0] = 1
+        for i in range(1, n+1):
+            current = nums[i-1]
+            for j in range(target+1):
+                if j < current:
+                    dp[i][j] = dp[i-1][j]
+                else:
+                    if dp[i-1][j] > 0 or dp[i-1][j-current] > 0:
+                        dp[i][j] = 1
+                    else:
+                        dp[i][j] = 0
+            if dp[n][target]:
+                return True
+            else:
+                return False
+```
