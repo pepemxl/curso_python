@@ -13,7 +13,7 @@ nav:
       - 'Secuencia de Fibonacci': '05_problem_solving/dp_01_fibonacci.md'
       - 'Algoritmo de Kadane': '02_algoritmos/dynamic_programming/02_kadane.md'
       - '0/1 Knapsack': '02_algoritmos/dynamic_programming/03_knapsack.md'
-      # - 'Knapsack sin limites': ''
+      - 'Knapsack sin limites': '02_algoritmos/dynamic_programming/04_knapsack_unbounded.md'
       # - 'Longest Common Subsequence ': ''
       # - 'Longest Increasing Subsequence': ''
       # - 'Palindromic Subsequence': ''
