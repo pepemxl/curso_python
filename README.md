@@ -1,107 +1,110 @@
-# course_python
-Course of python data analysis for bachelor degree students by José Luis Alonzo Velázquez
-We will follow the book "Python Data Analytics"
-# Introduction to Python Analytics
+# Curso de Python
 
-# Session   0 Introduction to Data Analysis
-## Data Analysis
-## Data Analysis Process
-## Quantitative and Qualitative Data Analysis
-# Session 01 Introduction to Python
-## Python basics
-## Variables
-## Operators
-## Numpy arrays
-## Universal functions (ufunctions)
-## Indexing, Slicing and Iterating
-# Session 02 Arrays and General Concepts
-## Conditions and Boolean Arrays
-## Shape Manipulation
-## Array Manipulation
-### Joining Arrays
-### Splitting Arrays
-## General Concepts
-## Structured Arrays
-## Reading and Writing Array Data on Files
-# Session 03 Pandas
-## Installation of pandas
-## Testing pandas
-## Introduction to pandas Data Structures
-### The Series
-### The DataFrame
-### The Index Objects
-## Other Functionalities on Indexes
-### Reindexing
-### Dropping
-### Arithmetic and Data Alignment
-# Session 04 Pandas
-## Operations Between Data Structures
-### Flexible Arithmetic Methods
-### Operations Between DataFrame and Series
-## Function Application and Mapping
-### Functions by Element
-### Functions by Row or Column
-### Statistics Functions
-## Sorting and Ranking
-## Correlation and Covariance
-## Filtering Data
-## Hierarchical Indexing and Leveling
-# Session 05 Reading and Writing
-## I/O API Tools
-## CSV and TXT Files
-## Readinf Data in CSV or TXT Files
-## Reading and Writinf HTML Files
-## Reading Data from XML
-## Reading and Writing Data on Excel
-## JSON Data
-## HDF5
-## Pickle
-## Interaction with Databases
-## Reading and Writing Data with MongoDB
-# Session 06 Data Manipulation
-## Data Preparation
-## Concatenating
-## Data Transformation
-## Discretization and Binning
-## Permutation
-## String Manupulation
-## Data Aggregation
-## Group Iteration
-## Advanced Data Aggregation
-# Session 07 matplotlib
-## Matplotlib
-## Installation
-## Matplotlib architecture
-## Pyplot
-## Plotting
-## Kwargs
-## Adding elements to chart
-## Saving your charts
-## Handling date values
-## Chart Typology
-## Line Charts
-## Histograms
-## Bar Charts
-## Pie Charts
-## Advanced Charts
-## mplot3D toolkit
-## Multi-Panel
-# Session 08 Scikit-Learn
-## Iris flower dataset
-## K-Nearest neighbors
-## Diabetes Dataset
-## Linear Regression
-## SVM
-# Session 09 Deep Learning
-## AI, Machine Learning and Deep Learning
-## Deep learning
-## Artificial Neural Networks
-## TensorFlow
-# Session 10 An Example
-## A hypothesis to be tested
-## Finding the data source
-## Jupyter
-# Session 11 JavaScript D3
-# Session 12 Handwritten Digits
-# Session 13 Textual Data Analysis with NLTK
-# Session 14 OpenCV
+Curso de Python enfocado en la creación de herramientas para el desarollo de APIs y Análisis de Datos.
+
+Para aprender Python de manera efectiva, es importante cubrir los siguientes temas:
+
+
+
+### **1. Fundamentos Básicos**
+- **Introducción a Python**: Historia, características y usos (web, data science, IA, scripting, etc.).
+- **Instalación y configuración**: Python + IDE (PyCharm, VS Code, Jupyter) o editores simples.
+- **Sintaxis básica**: Indentación, comentarios (`#`, `"""`), estructura de un programa.
+- **Variables y tipos de datos**: 
+  - Tipos: `int`, `float`, `str`, `bool`, `None`.
+  - Operadores: aritméticos (`+`, `-`, `*`, `/`, `**`), comparación (`==`, `>`, `<`), lógicos (`and`, `or`, `not`).
+- **Conversión de tipos**: `int()`, `str()`, `float()`, etc.
+
+---
+
+### **2. Control de Flujo**
+- **Condicionales**: `if`, `elif`, `else`.
+- **Bucles**:
+  - `while`: Bucles condicionales.
+  - `for`: Iteración sobre secuencias (listas, strings, rangos).
+  - Control de bucles: `break`, `continue`, `else` en bucles.
+
+---
+
+### **3. Estructuras de Datos**
+- **Listas**: Creación, métodos (`append()`, `remove()`, `slice`), list comprehension.
+- **Tuplas**: Inmutabilidad y usos.
+- **Diccionarios**: Pares clave-valor, métodos (`keys()`, `values()`, `items()`).
+- **Sets**: Elementos únicos, operaciones de conjuntos (`union`, `intersection`).
+- **Strings**: Métodos (`split()`, `join()`, `format()`, f-strings).
+
+---
+
+### **4. Funciones**
+- **Definición y llamada**: `def`, parámetros y retorno (`return`).
+- **Ámbito de variables**: Variables locales vs. globales (`global`).
+- **Argumentos**: Posicionales, nombrados, valores por defecto, `*args` y `**kwargs`.
+- **Funciones lambda**: Funciones anónimas.
+- **Documentación**: Docstrings (`"""Descripción"""`).
+
+---
+
+### **5. Módulos y Paquetes**
+- **Importación**: `import`, `from ... import`, `as`.
+- **Módulos estándar**: `math`, `random`, `datetime`, `os`, `sys`.
+- **Crear módulos y paquetes**: Organización de código en múltiples archivos.
+
+---
+
+### **6. Manejo de Archivos**
+- **Archivos de texto**: Abrir, leer, escribir (`open()`, `read()`, `write()`), modos (`r`, `w`, `a`).
+- **Manejo de contextos**: `with` (evita olvidar cerrar archivos).
+- **Formatos comunes**: JSON (`json.load()`, `json.dump()`), CSV (`csv.reader`).
+
+---
+
+### **7. Programación Orientada a Objetos (POO)**
+- **Clases y objetos**: `class`, atributos, métodos, `self`.
+- **Métodos especiales**: `__init__`, `__str__`, `__len__`.
+- **Herencia**: Clases padre/hijo, `super()`.
+- **Encapsulación**: Atributos privados (`_` y `__`).
+- **Polimorfismo**: Sobreescritura de métodos.
+
+---
+
+### **8. Manejo de Excepciones**
+- **Try-except**: Capturar errores (`ValueError`, `TypeError`, etc.).
+- **Finally y else**: Ejecución condicional tras excepciones.
+- **Raise**: Lanzar excepciones personalizadas.
+
+---
+
+### **9. Librerías Estándar Avanzadas**
+- **Expresiones regulares**: `re` (patrones, `search()`, `match()`).
+- **Threading y multiprocesamiento**: Concurrencia básica.
+- **Itertools y functools**: Funciones útiles para programación funcional.
+
+---
+
+### **10. Librerías Externas Populares**
+- **Web scraping**: `requests` + `BeautifulSoup`.
+- **Ciencia de datos**: `numpy` (arrays), `pandas` (DataFrames).
+- **Visualización**: `matplotlib`, `seaborn`.
+- **Web frameworks**: `Flask` o `Django` (backend).
+- **Testing**: `unittest` o `pytest`.
+
+---
+
+### **11. Proyectos y Buenas Prácticas**
+- **Ambientes virtuales**: `venv` o `conda` (aislar dependencias).
+- **PIP**: Instalación de librerías (`pip install`).
+- **Documentación**: Uso de `help()` y leer documentación oficial.
+- **Versionamiento**: Introducción a `git` + GitHub.
+- **Buenas prácticas**: PEP 8 (estilo de código), nombres descriptivos, modularización.
+
+---
+
+### **12. Temas Opcionales (según interés)**
+- **APIs REST**: Consumo con `requests`, creación con `FastAPI`.
+- **Bases de datos**: SQL con `sqlite3` o ORMs como `SQLAlchemy`.
+- **Async/Await**: Programación asíncrona con `asyncio`.
+- **Machine Learning**: Introducción a `scikit-learn` o `tensorflow`.
+
+
+### **Además cubriremos los temas clásicos de algoritmos y esttructuras de datos:**
+
