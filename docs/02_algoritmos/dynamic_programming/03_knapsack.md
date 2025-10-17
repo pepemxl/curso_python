@@ -204,16 +204,16 @@ class Solution:
         self.counter = 0
         self.n = len(nums)
         self.target = target
-        self.bfs(nums, 0, 0)
+        self.dfs(nums, 0, 0)
         return self.counter
     
-    def bfs(self, nums:List[int], current_index: int, current_sum: int):
+    def dfs(self, nums:List[int], current_index: int, current_sum: int):
         if current_index == self.n:
             if current_sum == self.target:
                 self.counter += 1
         else:
-            self.bfs(nums, current_index + 1, current_sum - nums[current_index])
-            self.bfs(nums, current_index + 1, current_sum + nums[current_index])
+            self.dfs(nums, current_index + 1, current_sum - nums[current_index])
+            self.dfs(nums, current_index + 1, current_sum + nums[current_index])
 ```
 
 
@@ -233,7 +233,10 @@ class Solution:
 
     def calculateWays(self, nums: List[int], current_index: int, current_sum: int, target: int) -> int:
         if current_index == len(nums):
-            return 1 if current_sum == target else 0
+            if current_sum == target:
+                return 1
+            else:
+                return 0
         else:
             if self.memo[current_index][current_sum + self.total_sum] != float("-inf"):
                 return self.memo[current_index][current_sum + self.total_sum]
@@ -242,6 +245,21 @@ class Solution:
             self.memo[current_index][current_sum + self.total_sum] = add + subtract
             return self.memo[current_index][current_sum + self.total_sum]
 ```
+#### Computo de Complejidad
+
+`Target = 5`
+
+`[1,1,1,1,1]`
+
+- a1. 0 -> 1
+    - b1. 0 -> 1
+    - b2. 0 -> -1
+- a2. 0 -> -1
+    - b1. 0 -> 1
+    - b2. 0 -> -1
+
+a1->b2 = 0
+a2->b1 = 0
 
 
 ### Solución usando knapsack (Bottom-up)
