@@ -253,6 +253,7 @@ class Solution:
 
 - a1. 0 -> 1
     - b1. 0 -> 1
+        - c1. 0 -> 1
     - b2. 0 -> -1
 - a2. 0 -> -1
     - b1. 0 -> 1
@@ -299,4 +300,32 @@ class Solution:
 ## Problema Last Stone Weight II
 
 
+```python title="Solución naive" linenums="1"
+class Solution:
+    def lastStoneWeightII(self, stones: List[int]) -> int:
+        self.n = len(stones)
+        self.total_sum = sum(stones)
+        self.memo = [[float('-inf')]*(2*self.total_sum+1) for i in range(self.n)]        
+        target = 1
+        if self.calculateWays(stones, 0, 0, target):
+            return target
+        else:
+            posibles = [abs(it-self.total_sum) for it, x in enumerate(self.memo[:][self.n-1]) if x != float('-inf')]
+            print(posibles)
+            return min(posibles)
 
+
+    def calculateWays(self, nums: List[int], current_index: int, current_sum: int, target: int) -> int:
+        if current_index == len(nums):
+            if current_sum == target:
+                return 1
+            else:
+                return 0
+        else:
+            if self.memo[current_index][current_sum + self.total_sum] != float("-inf"):
+                return self.memo[current_index][current_sum + self.total_sum]
+            add = self.calculateWays(nums, current_index + 1, current_sum + nums[current_index],target)
+            subtract = self.calculateWays(nums, current_index + 1, current_sum - nums[current_index],target)
+            self.memo[current_index][current_sum + self.total_sum] = add + subtract
+            return self.memo[current_index][current_sum + self.total_sum]
+```
