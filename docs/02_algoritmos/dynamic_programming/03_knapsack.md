@@ -173,3 +173,112 @@ class Solution:
             else:
                 return False
 ```
+
+
+
+## Problema Target Sum
+
+Se le proporciona una matriz de enteros `nums` y un entero objetivo(el `target`).
+
+Se desea construir una expresión a partir de `nums` añadiendo uno de los símbolos `'+'` y `'-'` antes de cada entero en `nums` y luego concatenando todos los enteros.
+
+Por ejemplo, si `nums = [2, 1]`, puede añadir un `'+'` antes de `2` y un `'-'` antes de `1` y concatenarlos para construir la expresión `"+2-1"`.
+
+Encuentra el número de expresiones diferentes que se pueden construir cuyo valor sea `target`.
+
+Donde 
+
+- `1 <= nums.length <= 20`
+- `0 <= nums[i] <= 1000`
+- `0 <= sum(nums[i]) <= 1000`
+- `-1000 <= target <= 1000`
+
+### Solución ineficiente
+
+Evaluar todas las posibles operaciones, es decir, `2^n` y ver cuantas de estas dan el valor de target.
+
+
+```python linenums="1" title="Solución Ineficiente"
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        self.counter = 0
+        self.n = len(nums)
+        self.target = target
+        self.bfs(nums, 0, 0)
+        return self.counter
+    
+    def bfs(self, nums:List[int], current_index: int, current_sum: int):
+        if current_index == self.n:
+            if current_sum == self.target:
+                self.counter += 1
+        else:
+            self.bfs(nums, current_index + 1, current_sum - nums[current_index])
+            self.bfs(nums, current_index + 1, current_sum + nums[current_index])
+```
+
+
+
+### Solución con Recursión usando Memoization
+
+Creamos un arreglo bidimensional para guardar los valores ya calculados.
+
+```python title="Solución" linenums="1"
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        self.total_sum = sum(nums)
+        # Esto nos dice si fue posible o no calcular una suma parcial y cuantas veces
+        # Aqui el rango va desde -self.total_sum a self.total_sum
+        self.memo = [[float("-inf")] * (2 * self.total_sum + 1) for i in range(len(nums))]
+        return self.calculateWays(nums, 0, 0, target)
+
+    def calculateWays(self, nums: List[int], current_index: int, current_sum: int, target: int) -> int:
+        if current_index == len(nums):
+            return 1 if current_sum == target else 0
+        else:
+            if self.memo[current_index][current_sum + self.total_sum] != float("-inf"):
+                return self.memo[current_index][current_sum + self.total_sum]
+            add = self.calculateWays(nums, current_index + 1, current_sum + nums[current_index],target)
+            subtract = self.calculateWays(nums, current_index + 1, current_sum - nums[current_index],target)
+            self.memo[current_index][current_sum + self.total_sum] = add + subtract
+            return self.memo[current_index][current_sum + self.total_sum]
+```
+
+
+### Solución usando knapsack (Bottom-up)
+
+
+Creamos una tabla DP 2D donde `dp[indice][suma]` representa el número de formas de llegar a la suma suma utilizando los primeros números de índice. Pero en lugar de usar recursión, iteraremos sobre los renglones y columnas!
+
+
+
+
+```python title="Knapsack" linenums="1"
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        n = len(nums)
+        total_sum = sum(nums)
+        if abs(target) > total_sum:
+            return 0
+        # Esto nos dice si fue posible o no calcular una suma parcial y cuantas veces
+        dp = [[0] * (2 * total_sum + 1) for i in range(n)]
+        dp[0][nums[0] + total_sum] = 1  # Inicializamos
+        dp[0][-nums[0] + total_sum] += 1  # Inicializamos
+
+        for row in range(1, n):
+            for val in range(-total_sum, total_sum + 1):
+                if dp[row - 1][val + total_sum] > 0:
+                    dp[row][val + nums[row] + total_sum] += dp[
+                        row - 1
+                    ][val + total_sum]
+                    dp[row][val - nums[row] + total_sum] += dp[
+                        row - 1
+                    ][val + total_sum]
+        return dp[n - 1][target + total_sum]
+```
+
+
+
+## Problema Last Stone Weight II
+
+
+
