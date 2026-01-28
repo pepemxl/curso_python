@@ -245,7 +245,7 @@ class Solution:
             self.memo[current_index][current_sum + self.total_sum] = add + subtract
             return self.memo[current_index][current_sum + self.total_sum]
 ```
-#### Computo de Complejidad
+#### Complejidad
 
 `Target = 5`
 
@@ -261,6 +261,63 @@ class Solution:
 
 a1->b2 = 0
 a2->b1 = 0
+
+
+##### **Estados posibles**
+
+- `current_index`: representa la posición actual en la lista `nums`, de 0 a `n-1`, donde `n` es la longitud de `nums`.
+- `current_sum`: representa la suma acumulada en el camino actual, que puede variar desde `-total_sum` hasta `+total_sum`.
+- Por lo tanto, el número total de estados posibles es:
+- `n` posibles valores para `current_index`.
+- `2 * total_sum + 1` posibles valores para `current_sum` (de `-total_sum` a `+total_sum`, inclusive).
+
+Esto da un total de **O(n * (2 * total_sum + 1))** estados posibles, o simplemente **O(n * total_sum)**.
+
+- **Trabajo por estado**:
+  - Para cada estado `(current_index, current_sum)`, el algoritmo realiza:
+    - Una verificación en la tabla de memoización (`self.memo`): O(1).
+    - Dos llamadas recursivas (una para sumar `nums[current_index]` y otra para restarlo), pero estas solo se realizan si el estado no está memoizado.
+    - Operaciones aritméticas y de asignación: O(1).
+  - Por lo tanto, el trabajo por estado, una vez que se descartan las operaciones memoizadas, es **O(1)**.
+
+- **Memoización**:
+  - La memoización asegura que cada estado `(current_index, current_sum)` se calcule solo una vez. Después de calcular un estado, el resultado se almacena en `self.memo`, y cualquier consulta futura a ese estado es O(1).
+
+- **Inicialización**:
+  - La inicialización de `self.total_sum` requiere calcular `sum(nums)`, lo cual tiene una complejidad de **O(n)**.
+  - La creación de la tabla de memoización `self.memo` tiene dimensiones `n * (2 * total_sum + 1)`, y llenarla con valores iniciales (`float("-inf")`) tiene una complejidad de **O(n * total_sum)**.
+
+- **Complejidad total**:
+  - El número total de estados es **O(n * total_sum)**.
+  - Cada estado se procesa en **O(1)** (excluyendo las llamadas recursivas, ya que la memoización evita recomputaciones).
+  - La inicialización tiene un costo de **O(n) + O(n * total_sum)**.
+  - Por lo tanto, la **complejidad temporal** dominante es **O(n * total_sum)**, ya que el término de inicialización de la tabla de memoización y el procesamiento de los estados tienen el mismo orden.
+### **2. Análisis de la Complejidad Espacial**
+
+La **complejidad espacial** se deriva del espacio utilizado por las estructuras de datos y la pila de recursión:
+
+#### Tabla de memoización
+
+- La tabla `self.memo` tiene dimensiones `n * (2 * total_sum + 1)`, lo que resulta en un uso de espacio de **O(n * total_sum)**.
+
+#### Pila de recursión**
+  - En el peor caso, la recursión puede alcanzar una profundidad de `n` (la longitud de `nums`), ya que cada llamada recursiva incrementa `current_index` hasta llegar a `n`.
+  - Por lo tanto, la pila de recursión utiliza **O(n)** espacio.
+
+- **Otras variables**:
+  - Variables como `total_sum`, `current_index`, `current_sum`, y `target` ocupan espacio constante **O(1)**.
+
+- **Complejidad espacial total**:
+  - La tabla de memoización domina el uso de espacio, por lo que la **complejidad espacial** es **O(n * total_sum)**.
+  - Aunque la pila de recursión agrega **O(n)**, este término es absorbido por el término dominante **O(n * total_sum)**.
+
+
+
+- **Complejidad temporal**: **O(n * total_sum)**, donde `n` es la longitud de la lista `nums` y `total_sum` es la suma de los elementos de `nums`.
+- **Complejidad espacial**: **O(n * total_sum)**, debido principalmente a la tabla de memoización.
+
+
+La complejidad depende de `total_sum`, lo que puede ser problemático si los valores en `nums` son muy grandes, ya que `total_sum` puede crecer significativamente. En tales casos, la complejidad puede parecer pseudo-polinómica.
 
 
 ### Solución usando knapsack (Bottom-up)
@@ -329,3 +386,46 @@ class Solution:
             self.memo[current_index][current_sum + self.total_sum] = add + subtract
             return self.memo[current_index][current_sum + self.total_sum]
 ```
+
+
+
+
+### Solución equivalente a target sum!
+
+Sea $S = \sum_{i=1}^{n} a_{i}$
+
+supongamos que logramos reacomodar $\{a_{i}\}$ como dos subconjuntos cuya diferencia minimiza!
+
+$$S_{1} = \sum_{i=1}^{k} b_{i}$$
+
+$$S_{2} = \sum_{i=k+1}^{n} b_{i}$$
+
+
+
+$$ peso\_minimizante = \min{|S_{1} - S_{2}|} $$
+
+$$ \Rightarrow peso\_minimizante = \min{|S_{1} + S_{2} - 2\cdot S_{2}|} $$
+
+$$ \Rightarrow peso\_minimizante = \min{|S - 2\cdot S_{2}|} $$
+
+$$ \Rightarrow peso\_minimizante = \max_{S_{2} \leq \frac{S}{2}}{S_{2}}  $$
+
+
+
+```python title="Solución" linenums="1"
+def def lastStoneWeightII(self, stones: List[int]) -> int:
+    suma = sum(stones)
+    target = suma // 2
+    # dp[i] = True si podemos formar suma i
+    dp = [False] * (target + 1)
+    dp[0] = True
+    for stone in stones:
+        for j in range(target, stone - 1, -1):
+            dp[j] = dp[j] or dp[j - stone]
+    # Encontrar la mayor suma posible ≤ target
+    for i in range(target, -1, -1):
+        if dp[i]:
+            return suma - 2 * i
+    return 0
+```
+
