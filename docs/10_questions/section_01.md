@@ -22,7 +22,7 @@ def add_item(item, bucket=None):
     return bucket
 ```
 
-## Alcance en Comprensión de Listas (Python 3 vs Python 2)
+## Alcance de las Listas en Python (Python 3 vs Python 2)
 
 ```python
 x = 10
@@ -30,7 +30,7 @@ result = [x for x in range(5)]
 print(x)  # ¿Qué valor tiene?
 ```
 
-En Python 3, las comprensiones de listas tienen su propio alcance; en Python 2 lo filtraban.
+En Python 3, las comprensiones/generadores de listas tienen su propio alcance; en Python 2 lo filtraban.
 
 ## Modificar Iterables Mientras se Iteran
 
